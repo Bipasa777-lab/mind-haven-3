@@ -1,4 +1,3 @@
-// backend/src/server.ts
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -6,8 +5,10 @@ import mongoose from "mongoose";
 // ✅ Import route modules
 import bookingRoutes from "./modules/booking/routes";
 import peerSupportRoutes from "./modules/peer-support/routes";
-import authRoutes from "./modules/auth/routes"; 
-import aiChatRoutes from "./modules/ai-chat/routes"; 
+import authRoutes from "./modules/auth/routes";
+import aiChatRoutes from "./modules/ai-chat/routes";
+import resourceRoutes from "./modules/resources/routes";  // ✅ Resource Hub
+import analyticsRoutes from "./modules/analytics/routes"; // ✅ Analytics Dashboard
 
 dotenv.config();
 const app = express();
@@ -32,10 +33,18 @@ app.use("/api/auth", authRoutes);
 // ✅ AI Chat routes
 app.use("/api/ai-chat", aiChatRoutes);
 
+// ✅ Resource Hub routes
+app.use("/api/resources", resourceRoutes);
+
+// ✅ Analytics routes
+app.use("/api/analytics", analyticsRoutes);
+
 mongoose
   .connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/bookingdb")
   .then(() => {
-    console.log("MongoDB Connected ✅");
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    console.log("✅ MongoDB Connected");
+    app.listen(PORT, () =>
+      console.log(`🚀 Server running on http://localhost:${PORT}`)
+    );
   })
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
