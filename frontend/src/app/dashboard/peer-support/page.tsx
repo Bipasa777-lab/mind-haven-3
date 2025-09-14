@@ -54,7 +54,6 @@ export default function PeerSupportPage(): JSX.Element {
       alert("⚠️ Please type a message before sending.");
       return;
     }
-    console.log(`Message sent to ${selectedNumber}: ${message}`);
     alert(`✅ Message sent to ${selectedNumber}`);
     setMessage("");
   };
@@ -75,8 +74,9 @@ export default function PeerSupportPage(): JSX.Element {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400 flex flex-col font-sans">
-      {/* Top Peer Support Header */}
-      <header className="flex items-center justify-between p-4 bg-white/30 backdrop-blur-md shadow-md rounded-b-2xl">
+      
+      {/* Header */}
+      <header className="flex items-center justify-between px-6 py-4 bg-white/30 backdrop-blur-md shadow-md">
         <Button
           variant="ghost"
           size="icon"
@@ -86,14 +86,9 @@ export default function PeerSupportPage(): JSX.Element {
           <Menu className="w-8 h-8" />
         </Button>
 
-        <h1 className="text-3xl font-extrabold text-gray-800 tracking-wide drop-shadow">
+        <h1 className="text-3xl font-extrabold text-gray-800 tracking-wide">
           Peer Support
         </h1>
-
-        <Avatar className="ring-2 ring-white/60 shadow-md">
-          <AvatarImage src="/image-4.png" alt="User avatar" />
-          <AvatarFallback>U</AvatarFallback>
-        </Avatar>
       </header>
 
       {/* Sidebar */}
@@ -128,7 +123,8 @@ export default function PeerSupportPage(): JSX.Element {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col lg:flex-row gap-8 p-8">
+      <main className="flex-1 flex flex-col lg:flex-row gap-8 p-6 lg:p-12 mt-16">
+        
         {/* Categories */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -136,7 +132,7 @@ export default function PeerSupportPage(): JSX.Element {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-full lg:w-1/3"
         >
-          <Card className="w-full bg-white/40 backdrop-blur-xl shadow-xl hover:shadow-2xl rounded-2xl p-6 transition-all duration-500">
+          <Card className="w-full bg-white/50 backdrop-blur-xl shadow-xl hover:shadow-2xl rounded-2xl p-6 transition-all duration-500">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Categories</h2>
             <nav className="flex flex-col gap-3">
               {categoryItems.map((item, index) => (
@@ -144,7 +140,7 @@ export default function PeerSupportPage(): JSX.Element {
                   key={index}
                   variant="ghost"
                   onClick={() => handleCategoryClick(item.name)}
-                  className="justify-start text-lg hover:bg-white/50 rounded-xl transition-all duration-300"
+                  className="justify-start text-lg hover:bg-white/60 rounded-xl transition-all duration-300"
                 >
                   {item.name}
                 </Button>
@@ -152,7 +148,7 @@ export default function PeerSupportPage(): JSX.Element {
             </nav>
 
             {suggestions.length > 0 && (
-              <div className="mt-5 p-4 bg-white/60 backdrop-blur-md rounded-xl shadow-inner transition-all duration-500">
+              <div className="mt-5 p-4 bg-white/70 backdrop-blur-md rounded-xl shadow-inner">
                 <h3 className="font-semibold mb-2 text-gray-700">Suggestions:</h3>
                 <ul className="list-disc list-inside text-sm space-y-1">
                   {suggestions.map((s, idx) => (
@@ -177,7 +173,7 @@ export default function PeerSupportPage(): JSX.Element {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
           className="flex-1"
         >
-          <Card className="w-full bg-white/40 backdrop-blur-xl shadow-xl hover:shadow-2xl rounded-2xl p-6 transition-all duration-500">
+          <Card className="w-full bg-white/50 backdrop-blur-xl shadow-xl hover:shadow-2xl rounded-2xl p-6">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Discussions</h2>
             <div className="flex flex-col gap-4 mb-6">
               {discussionItems.map((item, index) => (
@@ -185,7 +181,7 @@ export default function PeerSupportPage(): JSX.Element {
                   key={index}
                   variant="outline"
                   onClick={() => handleDiscussionClick(item)}
-                  className="w-full justify-start text-lg bg-white/50 hover:bg-white/70 rounded-xl transition-all duration-300 shadow-sm"
+                  className="w-full justify-start text-lg bg-white/60 hover:bg-white/80 rounded-xl transition-all duration-300 shadow-sm"
                 >
                   {item}
                 </Button>
@@ -197,13 +193,13 @@ export default function PeerSupportPage(): JSX.Element {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-md"
+              className="bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-md"
             >
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type your message..."
-                className="w-full p-3 rounded-xl border border-gray-300 bg-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300"
+                className="w-full p-3 rounded-xl border border-gray-300 bg-white/40 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300"
                 rows={4}
               />
 
