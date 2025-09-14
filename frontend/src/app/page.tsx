@@ -41,7 +41,7 @@ export default function HomePage() {
           {/* ✅ Updated Link to Dashboard */}
           <Link href="/dashboard">
             <Button className="px-6 md:px-10 h-[52px] md:h-[64px] text-lg md:text-xl font-semibold rounded-[30px] bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.8)] transition-all duration-300">
-              Get Started 🚀
+              Get Started 
             </Button>
           </Link>
         </motion.div>

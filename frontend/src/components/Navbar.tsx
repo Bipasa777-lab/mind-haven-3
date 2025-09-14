@@ -26,14 +26,14 @@ export default function Navbar() {
         />
         <div className="text-black">
           <div className="font-semibold text-lg md:text-xl leading-none">Mind</div>
-          <div className="text-xs md:text-sm -mt-1 tracking-wide">Heaven</div>
+          <div className="text-xs md:text-sm -mt-1 tracking-wide">Haven</div>
         </div>
       </Link>
 
       {/* Buttons Section (only render after mount) */}
       {mounted && (
         <div className="flex gap-3">
-          <Link href="/chat">
+          <Link href="/dashboard/ai-chart-support">
             <Button className="rounded-full bg-sky-400 hover:bg-sky-500 text-white px-5 transition">
               Chat
             </Button>
@@ -46,6 +46,12 @@ export default function Navbar() {
           <Link href="/faq">
             <Button className="rounded-full bg-sky-400 hover:bg-sky-500 text-white px-5 transition">
               FAQ
+            </Button>
+          </Link>
+          {/* ✅ New About Button */}
+          <Link href="/about">
+            <Button className="rounded-full bg-sky-400 hover:bg-sky-500 text-white px-5 transition">
+              About
             </Button>
           </Link>
         </div>

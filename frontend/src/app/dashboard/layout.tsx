@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const navigationItems = [
   { label: 'AI Chat Support', href: '/dashboard/ai-chart-support' },
@@ -17,21 +18,18 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   // Close sidebar on outside click (mobile only)
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
-        !target.closest('#sidebar') &&
-        !target.closest('#hamburger')
-      ) {
+      if (!target.closest('#sidebar') && !target.closest('#hamburger')) {
         setMenuOpen(false);
       }
     };
     document.addEventListener('click', handleClickOutside);
-    return () =>
-      document.removeEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   return (
@@ -45,38 +43,47 @@ export default function DashboardLayout({
       >
         <div>
           {/* Logo Section */}
-          <div className="flex flex-col items-center py-6 bg-[#0057ac] border-b border-blue-300">
+          <div className="mt-4 flex flex-col items-center py-10 bg-[#0057ac] border-b border-blue-300">
             <Link href="/dashboard">
               <img
                 src="/min.svg"
                 alt="Mind Heaven Logo"
-                className="w-16 h-16 rounded-full shadow-md mb-1 cursor-pointer"
+                className="w-20 h-20 rounded-full shadow-lg cursor-pointer hover:scale-105 transition"
               />
             </Link>
           </div>
 
           {/* Navigation */}
-          <div className="flex-1 overflow-y-auto flex flex-col items-center mt-2">
-            {navigationItems.map((item, index) => (
-              <Link
-                key={index}
-                href={item.href}
-                className="w-11/12 py-4 px-6 text-center text-white font-medium hover:bg-[#0065d4] border-b border-blue-300 rounded-lg transition"
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="flex-1 overflow-y-auto flex flex-col items-center mt-4">
+            {navigationItems.map((item, index) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={index}
+                  href={item.href}
+                  className={`w-11/12 py-3 px-6 text-center font-medium rounded-lg transition-all mb-2 ${
+                    isActive
+                      ? 'bg-white/30 text-yellow-300 shadow-lg scale-[1.02]'
+                      : 'text-white hover:bg-[#0065d4]'
+                  }`}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
         {/* Crisis Support Section (Bottom) */}
-        <div className="m-4 p-4 rounded-lg bg-white/20 backdrop-blur text-white text-center shadow-md">
+        <a
+          href="tel:1800274747" // emergency number clickable
+          className="m-4 p-4 rounded-lg bg-white/20 backdrop-blur text-white text-center shadow-md cursor-pointer hover:bg-white/30 transition"
+        >
           <h3 className="font-bold text-lg mb-2">24/7 Crisis Support</h3>
-          <p className="text-sm">If you're in crisis, call immediately:</p>
-          <p className="mt-2 font-semibold text-base">📞 1-800-CRISIS</p>
-          <p className="mt-1 font-semibold text-base">💬 Text "HELLO" to 741741</p>
-        </div>
+          <p className="text-sm">If you're in crisis, tap to call immediately:</p>
+          
+        </a>
       </nav>
 
       {/* Main Content Area */}
@@ -93,7 +100,7 @@ export default function DashboardLayout({
         </button>
 
         {/* Page Content */}
-        <main className="pt-6 px-6 md:px-8">{children}</main>
+        <main className="pt-8 px-6 md:px-10">{children}</main>
       </div>
     </div>
   );
