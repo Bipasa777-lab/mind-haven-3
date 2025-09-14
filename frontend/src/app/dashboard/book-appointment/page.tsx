@@ -57,7 +57,7 @@ export default function BookPage(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 animate-gradient">
       <Navbar activePage={activePage} setActivePage={setActivePage} />
 
       <motion.main
@@ -65,121 +65,165 @@ export default function BookPage(): JSX.Element {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -15 }}
-        transition={{ duration: 0.3 }}
-        className="flex-1 p-6"
+        transition={{ duration: 0.5 }}
+        className="flex-1 p-6 flex justify-center items-center"
       >
-        <Card className="w-full bg-white/70 backdrop-blur-lg shadow-xl rounded-2xl p-6">
-          <h2 className="text-2xl font-bold mb-4">{activePage}</h2>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="w-full max-w-3xl"
+        >
+          <Card className="w-full bg-white/80 backdrop-blur-lg shadow-2xl rounded-2xl p-6">
+            <h2 className="text-2xl font-bold mb-4 text-center">{activePage}</h2>
 
-          {activePage === "Book Appointment" && !bookingComplete && (
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* User Details */}
-                <Input
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                />
-                <Input
-                  type="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                />
-                <Input
-                  type="tel"
-                  placeholder="Your Phone"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  required
-                />
+            {activePage === "Book Appointment" && !bookingComplete && (
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* User Details */}
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
+                    <Input
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                    />
+                  </motion.div>
 
-                {/* Session Type */}
-                <div className="flex gap-3">
-                  <Button
-                    type="button"
-                    className={sessionType === "in-person" ? "bg-blue-600 text-white" : "bg-gray-200"}
-                    onClick={() => setSessionType("in-person")}
-                  >
-                    In-person
-                  </Button>
-                  <Button
-                    type="button"
-                    className={sessionType === "online" ? "bg-blue-600 text-white" : "bg-gray-200"}
-                    onClick={() => setSessionType("online")}
-                  >
-                    Online
-                  </Button>
-                </div>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+                    <Input
+                      type="email"
+                      placeholder="Your Email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                    />
+                  </motion.div>
 
-                {/* Date Selector */}
-                <div>
-                  <label className="block text-gray-700 mb-1 font-medium">Select Date</label>
-                  <Input
-                    type="date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    required
-                  />
-                </div>
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+                    <Input
+                      type="tel"
+                      placeholder="Your Phone"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      required
+                    />
+                  </motion.div>
 
-                {/* Time Selector */}
-                <div>
-                  <label className="block text-gray-700 mb-1 font-medium">Select Time (IST)</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {timeSlots.map((time, i) => (
-                      <Button
-                        key={i}
-                        type="button"
-                        className={selectedTime === time ? "bg-green-600 text-white" : "bg-gray-200"}
-                        onClick={() => setSelectedTime(time)}
-                      >
-                        {time}
-                      </Button>
-                    ))}
+                  {/* Session Type */}
+                  <div className="flex gap-3">
+                    <Button
+                      type="button"
+                      className={`flex-1 rounded-lg transition-all ${
+                        sessionType === "in-person"
+                          ? "bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg"
+                          : "bg-gray-200 hover:bg-gray-300"
+                      }`}
+                      onClick={() => setSessionType("in-person")}
+                    >
+                      In-person
+                    </Button>
+                    <Button
+                      type="button"
+                      className={`flex-1 rounded-lg transition-all ${
+                        sessionType === "online"
+                          ? "bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg"
+                          : "bg-gray-200 hover:bg-gray-300"
+                      }`}
+                      onClick={() => setSessionType("online")}
+                    >
+                      Online
+                    </Button>
                   </div>
-                </div>
 
-                <Button type="submit" className="w-full bg-green-600 text-white">
-                  Complete Booking
-                </Button>
-              </form>
-            </CardContent>
-          )}
+                  {/* Date Selector */}
+                  <div>
+                    <label className="block text-gray-700 mb-1 font-medium">Select Date</label>
+                    <Input
+                      type="date"
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      required
+                      className="rounded-lg"
+                    />
+                  </div>
 
-          {/* Booking Complete Section */}
-          {activePage === "Book Appointment" && bookingComplete && (
-            <div className="p-4 text-green-700">
-              <h3 className="text-xl font-semibold mb-3">
-                ✅ Booking Completed Successfully!
-              </h3>
-              <p className="mb-3">
-                Your appointment is scheduled on <strong>{selectedDate}</strong> at{" "}
-                <strong>{selectedTime}</strong> ({sessionType} session).
-              </p>
-              <p className="mb-3">Here are some counsellors you can connect with:</p>
-              <ul className="space-y-3">
-                {counsellors.map((c, i) => (
-                  <li key={i} className="p-3 border rounded-lg bg-white/60 shadow-sm">
-                    <p className="font-semibold text-lg">{c.name}</p>
-                    <p className="text-gray-600">{c.specialization}</p>
-                    <p className="text-blue-700">📞 {c.phone}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+                  {/* Time Selector */}
+                  <div>
+                    <label className="block text-gray-700 mb-1 font-medium">Select Time (IST)</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      {timeSlots.map((time, i) => (
+                        <motion.div
+                          key={i}
+                          whileTap={{ scale: 0.95 }}
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          <Button
+                            type="button"
+                            className={`w-full rounded-lg transition-all ${
+                              selectedTime === time
+                                ? "bg-gradient-to-r from-green-400 to-green-600 text-white shadow-lg"
+                                : "bg-gray-200 hover:bg-gray-300"
+                            }`}
+                            onClick={() => setSelectedTime(time)}
+                          >
+                            {time}
+                          </Button>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
 
-          {activePage !== "Book Appointment" && (
-            <div className="p-4 text-gray-700">
-              <p>
-                Content for <strong>{activePage}</strong> will appear here.
-              </p>
-            </div>
-          )}
-        </Card>
+                  <Button type="submit" className="w-full bg-gradient-to-r from-green-400 to-green-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform">
+                    Complete Booking
+                  </Button>
+                </form>
+              </CardContent>
+            )}
+
+            {/* Booking Complete Section */}
+            {activePage === "Book Appointment" && bookingComplete && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="p-4 text-green-700"
+              >
+                <h3 className="text-xl font-semibold mb-3">
+                  ✅ Booking Completed Successfully!
+                </h3>
+                <p className="mb-3">
+                  Your appointment is scheduled on <strong>{selectedDate}</strong> at{" "}
+                  <strong>{selectedTime}</strong> ({sessionType} session).
+                </p>
+                <p className="mb-3">Here are some counsellors you can connect with:</p>
+                <ul className="space-y-3">
+                  {counsellors.map((c, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      className="p-3 rounded-lg bg-gradient-to-r from-blue-100 to-blue-200 shadow-sm"
+                    >
+                      <p className="font-semibold text-lg">{c.name}</p>
+                      <p className="text-gray-600">{c.specialization}</p>
+                      <p className="text-blue-700">📞 {c.phone}</p>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+
+            {activePage !== "Book Appointment" && (
+              <div className="p-4 text-gray-700">
+                <p>
+                  Content for <strong>{activePage}</strong> will appear here.
+                </p>
+              </div>
+            )}
+          </Card>
+        </motion.div>
       </motion.main>
     </div>
   );

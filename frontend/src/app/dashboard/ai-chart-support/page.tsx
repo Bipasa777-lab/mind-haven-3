@@ -47,71 +47,82 @@ export default function Desktop() {
     }, 1000);
   };
 
-  // Scroll to bottom when messages change
+  // Auto-scroll
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
 
   return (
-    <div className="bg-[#a3d2ff] flex justify-center items-center min-h-screen p-4">
-      <Card className="bg-neutral-100 rounded-3xl w-full max-w-[800px] h-[600px] flex flex-col shadow-lg">
+    <div className="bg-gradient-to-r from-blue-200 via-blue-300 to-blue-400 animate-gradient-x flex justify-center items-center min-h-screen p-4">
+      <Card className="bg-white/80 backdrop-blur-xl rounded-3xl w-full max-w-[850px] h-[650px] flex flex-col shadow-2xl border border-white/40">
+        
         {/* Header */}
-        <header className="flex items-center gap-4 p-6 border-b border-gray-300">
+        <header className="flex items-center gap-4 p-6 border-b border-gray-300/50 bg-white/30 backdrop-blur-md rounded-t-3xl">
           <Avatar className="w-16 h-16">
             <AvatarImage src="/image-7.png" alt="AI Assistant" />
             <AvatarFallback>AI</AvatarFallback>
           </Avatar>
           <div>
-            <h1 className="text-2xl font-semibold">AI Mental Health Assistance</h1>
+            <h1 className="text-2xl font-semibold text-gray-800">AI Mental Health Assistance</h1>
             <p className="text-sm text-gray-600">Available 24/7 for immediate support</p>
           </div>
         </header>
 
-        {/* Chat area */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {chatMessages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex items-start gap-3 ${
-                message.type === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
-              {message.type === "ai" && (
-                <Avatar className="w-12 h-12 flex-shrink-0">
-                  <AvatarImage src={message.avatar} alt="AI" />
-                  <AvatarFallback>AI</AvatarFallback>
-                </Avatar>
-              )}
-
+        {/* Chat area with animated gradient background */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-5 relative rounded-2xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 animate-gradient-xy opacity-60 rounded-2xl" />
+          
+          <div className="relative z-10 space-y-4">
+            {chatMessages.map((message) => (
               <div
-                className={`px-4 py-2 rounded-xl max-w-[70%] break-words ${
-                  message.type === "ai" ? "bg-blue-300 text-black" : "bg-blue-600 text-white"
+                key={message.id}
+                className={`flex items-end gap-3 ${
+                  message.type === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                {message.content}
-              </div>
+                {message.type === "ai" && (
+                  <Avatar className="w-12 h-12 flex-shrink-0">
+                    <AvatarImage src={message.avatar} alt="AI" />
+                    <AvatarFallback>AI</AvatarFallback>
+                  </Avatar>
+                )}
 
-              {message.type === "user" && (
-                <Avatar className="w-12 h-12 flex-shrink-0">
-                  <AvatarImage src={message.avatar} alt="User" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-              )}
-            </div>
-          ))}
-          <div ref={chatEndRef} />
+                <div
+                  className={`px-5 py-3 rounded-2xl shadow-md max-w-[70%] text-sm leading-relaxed ${
+                    message.type === "ai"
+                      ? "bg-gradient-to-r from-blue-300 to-blue-400 text-black"
+                      : "bg-gradient-to-r from-blue-600 to-blue-700 text-white"
+                  }`}
+                >
+                  {message.content}
+                </div>
+
+                {message.type === "user" && (
+                  <Avatar className="w-12 h-12 flex-shrink-0">
+                    <AvatarImage src={message.avatar} alt="User" />
+                    <AvatarFallback>U</AvatarFallback>
+                  </Avatar>
+                )}
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
         </div>
 
         {/* Input area */}
-        <div className="flex p-6 border-t border-gray-300 gap-3">
+        <div className="flex p-6 border-t border-gray-300/50 bg-white/30 backdrop-blur-md gap-3 rounded-b-3xl">
           <Input
             placeholder="Type your message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1"
+            className="flex-1 rounded-full border border-gray-300/50 bg-white/60 backdrop-blur-sm focus:ring-2 focus:ring-blue-400"
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
           />
-          <Button onClick={handleSend} size="icon" className="bg-blue-500 hover:bg-blue-600 text-white">
+          <Button
+            onClick={handleSend}
+            size="icon"
+            className="rounded-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-md"
+          >
             <SendIcon />
           </Button>
         </div>
