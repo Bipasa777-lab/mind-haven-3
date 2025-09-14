@@ -7,6 +7,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import axios from "axios";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ChatMessage {
   id: number;
@@ -20,6 +28,7 @@ export default function Desktop() {
     { id: 1, type: "ai", content: "Hi! How can I help you today?", avatar: "/image-7.png" },
   ]);
   const [input, setInput] = useState("");
+  const [modelName, setModelName] = useState("mental_health"); // Default model
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   const handleSend = () => {
@@ -35,16 +44,27 @@ export default function Desktop() {
     setChatMessages([...chatMessages, userMessage]);
     setInput("");
 
-    // Dummy AI response
-    setTimeout(() => {
-      const aiMessage: ChatMessage = {
-        id: chatMessages.length + 2,
-        type: "ai",
-        content: "Thanks for sharing! Remember to take deep breaths and relax.",
-        avatar: "/image-7.png",
-      };
-      setChatMessages((prev) => [...prev, aiMessage]);
-    }, 1000);
+    // Call AI service
+    axios.post("http://localhost:5000/api/ai-chat", { text: input, modelName })
+      .then((response) => {
+        const aiMessage: ChatMessage = {
+          id: chatMessages.length + 2,
+          type: "ai",
+          content: response.data.response, // Assuming response.data has a 'response' field
+          avatar: "/image-7.png",
+        };
+        setChatMessages((prev) => [...prev, aiMessage]);
+      })
+      .catch((error) => {
+        console.error("Error calling AI service:", error);
+        const errorMessage: ChatMessage = {
+          id: chatMessages.length + 2,
+          type: "ai",
+          content: "Sorry, I'm having trouble connecting to the AI. Please try again later.",
+          avatar: "/image-7.png",
+        };
+        setChatMessages((prev) => [...prev, errorMessage]);
+      });
   };
 
   // Scroll to bottom when messages change
@@ -65,6 +85,15 @@ export default function Desktop() {
             <h1 className="text-2xl font-semibold">AI Mental Health Assistance</h1>
             <p className="text-sm text-gray-600">Available 24/7 for immediate support</p>
           </div>
+          <Select onValueChange={(value) => setModelName(value)} defaultValue={modelName}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a model" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="mental_health">Mental Health Chatbot</SelectItem>
+              <SelectItem value="suicidality">Suicidality Chatbot</SelectItem>
+            </SelectContent>
+          </Select>
         </header>
 
         {/* Chat area */}

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 const navigationItems = [
-  { label: 'AI Chat Support', href: '/dashboard/ai-chart-support' },
+  { label: 'AI Chat Support', href: '/dashboard/ai-chat-support' },
   { label: 'Book Appointment', href: '/dashboard/book-appointment' },
   { label: 'Resources', href: '/dashboard/resources' },
   { label: 'Peer Support', href: '/dashboard/peer-support' },
