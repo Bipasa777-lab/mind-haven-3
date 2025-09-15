@@ -1,18 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu } from "lucide-react";
 
 const sidebarMenuItems = [
-  { label: "AI Chart Support", active: false },
+  { label: "AI Chat Support", active: false },
   { label: "Book Appointment", active: false },
   { label: "Resources", active: false },
   { label: "Peer Support", active: true },
@@ -73,10 +68,12 @@ export default function PeerSupportPage(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400 flex flex-col font-sans">
+    // NOTE: pt-20 pushes this entire component below any fixed global header.
+    <div className="min-h-screen w-full bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400 flex flex-col font-sans pt-20 lg:pt-24">
       
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-white/30 backdrop-blur-md shadow-md">
+      <header className="relative flex items-center justify-between px-6 py-4 bg-white/30 backdrop-blur-md shadow-md z-20">
+        {/* left: menu toggle */}
         <Button
           variant="ghost"
           size="icon"
@@ -86,12 +83,16 @@ export default function PeerSupportPage(): JSX.Element {
           <Menu className="w-8 h-8" />
         </Button>
 
-        <h1 className="text-3xl font-extrabold text-gray-800 tracking-wide">
+        {/* centered title (absolute so it stays centered despite left/right controls) */}
+        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-3xl font-extrabold text-gray-800 tracking-wide select-none">
           Peer Support
         </h1>
+
+        {/* right: (intentionally kept empty so this header won't clash with site-level nav) */}
+        <div className="w-8" aria-hidden />
       </header>
 
-      {/* Sidebar */}
+      {/* Sidebar (slide-in) */}
       <AnimatePresence>
         {sidebarOpen && (
           <motion.aside
@@ -101,7 +102,7 @@ export default function PeerSupportPage(): JSX.Element {
             transition={{ type: "spring", stiffness: 80, damping: 18 }}
             className="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-500 text-white shadow-2xl z-50 p-6 rounded-r-2xl"
           >
-            <h2 className="text-2xl font-bold mb-6">Mind Heaven</h2>
+            <h2 className="text-2xl font-bold mb-6">Mind Haven</h2>
             <nav className="flex flex-col gap-3">
               {sidebarMenuItems.map((item, index) => (
                 <Button
@@ -109,9 +110,7 @@ export default function PeerSupportPage(): JSX.Element {
                   variant="ghost"
                   onClick={() => handleSidebarClick(item.label)}
                   className={`justify-start text-lg rounded-xl px-3 py-2 transition-all duration-300 ${
-                    item.active
-                      ? "bg-blue-700 text-white shadow"
-                      : "hover:bg-blue-600/50"
+                    item.active ? "bg-blue-700 text-white shadow" : "hover:bg-blue-600/50"
                   }`}
                 >
                   {item.label}
@@ -122,8 +121,8 @@ export default function PeerSupportPage(): JSX.Element {
         )}
       </AnimatePresence>
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col lg:flex-row gap-8 p-6 lg:p-12 mt-16">
+      {/* Main Content - small top margin so header and content have separation */}
+      <main className="flex-1 flex flex-col lg:flex-row gap-8 p-6 lg:p-12 mt-6">
         
         {/* Categories */}
         <motion.div
