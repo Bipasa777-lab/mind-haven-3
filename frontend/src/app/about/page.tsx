@@ -1,96 +1,130 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function AboutPage() {
   return (
     <section
-      id="about" // ✅ anchor for navbar scroll
-      className="bg-[#a3d2ff] min-h-screen w-full flex justify-center"
+      id="about"
+      className="bg-gradient-to-b from-blue-100 via-blue-200 to-blue-300 min-h-screen w-full flex justify-center font-sans"
     >
-      <div className="bg-[#a3d2ff] w-full max-w-[1440px] px-12 py-12 relative">
-        {/* Header */}
-        <header className="flex items-center mb-12">
+      <div className="w-full max-w-[1200px] px-6 md:px-12 py-16 relative">
+        {/* Hero Header */}
+        <motion.header
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center text-center mb-12"
+        >
           <img
-            className="w-[80px] h-[80px] object-cover"
+            className="w-[100px] h-[100px] object-cover mb-4 drop-shadow-lg"
             alt="Mind Heaven Logo"
-            src="/image-1.png"
+            src="/min.svg"
           />
-          <div className="ml-4">
-            <h1 className="text-4xl font-bold text-black">Mind</h1>
-            <span className="text-2xl text-black">Heaven</span>
-          </div>
-        </header>
+          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-800 drop-shadow">
+            Mind Haven
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 mt-3 max-w-2xl">
+            Digital Mental Health and Psychological Support System for Students in Higher Education
+          </p>
+        </motion.header>
 
-        {/* Content */}
-        <main className="space-y-10 text-black font-sans">
+        {/* Content Sections */}
+        <div className="space-y-10">
           {/* Project Overview */}
-          <section>
-            <h2 className="text-2xl font-bold mb-3">Project Overview</h2>
-            <p>
-              The project focuses on building a digital mental health and
-              psychological support system designed specifically for students in
-              higher education. It aims to provide accessible, confidential, and
-              user-friendly mental health resources through technology. The
-              system combines AI-driven chat support, peer interaction, and
-              professional booking options to create a comprehensive mental
-              health support ecosystem.
-            </p>
-          </section>
+          <Card className="bg-white/70 backdrop-blur-xl shadow-xl rounded-2xl">
+            <CardContent className="p-6">
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Project Overview</h2>
+              <p className="text-gray-700 leading-relaxed">
+                Our project, <strong>Mind Haven</strong>, addresses the rising mental health concerns
+                among students in higher education. It provides an AI + Human hybrid support system
+                combining empathetic chatbots, counselor booking, peer forums, and resources. The
+                platform ensures confidentiality, accessibility, and early detection of risks while
+                bridging the gap where counseling centers remain underused.
+              </p>
+            </CardContent>
+          </Card>
 
-          {/* Objectives */}
-          <section>
-            <h2 className="text-2xl font-bold mb-3">Project Objectives</h2>
-            <ol className="list-decimal list-inside space-y-2">
-              <li>To provide accessible psychological support to students at any time.</li>
-              <li>To create a safe and inclusive digital space for peer discussions.</li>
-              <li>To reduce stigma around mental health by integrating resources into everyday student life.</li>
-              <li>To enable easy access to professionals via booking and scheduling features.</li>
-              <li>To leverage AI-driven support for immediate emotional assistance.</li>
-            </ol>
-          </section>
+          {/* Technical Approach */}
+          <Card className="bg-white/70 backdrop-blur-xl shadow-xl rounded-2xl">
+            <CardContent className="p-6">
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Technical Approach</h2>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li>Frontend: Next.js + TypeScript + Tailwind CSS (Student UI, Dashboards)</li>
+                <li>Backend: Node.js (APIs) + FastAPI (AI services)</li>
+                <li>Database: MongoDB / PostgreSQL</li>
+                <li>
+                  AI Models: <code>thrishala/mental_health_chatbot</code> for empathetic support,
+                  <code>sentinet/suicidality</code> for suicide risk detection
+                </li>
+                <li>Modular microservices for chat, booking, resources, peer-support, and analytics</li>
+              </ul>
+            </CardContent>
+          </Card>
 
-          {/* Key Features */}
-          <section>
-            <h2 className="text-2xl font-bold mb-3">Key Features</h2>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Landing Page – Clear introduction, mental health awareness, and quick navigation.</li>
-              <li>AI-Guided Chat Support – Real-time conversations with an AI chatbot trained on psychological support prompts.</li>
-              <li>Booking System – Students can schedule sessions with licensed counselors or therapists.</li>
-              <li>Resource Hub – Articles, videos, audio relaxation tracks, worksheets, and self-care guides.</li>
-              <li>Peer Support Forum – Safe, moderated community discussions among students.</li>
-              <li>Admin Dashboard – For counselors and administrators to manage sessions, monitor usage, and review anonymized data.</li>
-              <li>Emergency Support – Quick links to crisis hotlines and immediate help.</li>
-            </ul>
-          </section>
+          {/* Feasibility & Challenges */}
+          <Card className="bg-white/70 backdrop-blur-xl shadow-xl rounded-2xl">
+            <CardContent className="p-6">
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Feasibility & Challenges</h2>
+              <p className="text-gray-700 mb-3">
+                Built with open-source and cloud-ready technologies, our system is scalable across
+                institutions. However, challenges include data privacy, reliability of AI in sensitive
+                contexts, and real-time crisis management.
+              </p>
+              <h3 className="text-xl font-semibold text-gray-800">Strategies:</h3>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-2">
+                <li>End-to-end encryption & anonymization</li>
+                <li>Human-in-the-loop escalation for high-risk cases</li>
+                <li>Continuous retraining of AI models to improve accuracy</li>
+              </ul>
+            </CardContent>
+          </Card>
 
-          {/* Use Cases */}
-          <section>
-            <h2 className="text-2xl font-bold mb-3">Use Cases</h2>
-            <ul className="list-disc list-inside space-y-2">
-              <li>A student experiencing exam stress can use the chatbot for coping strategies and guided breathing exercises.</li>
-              <li>A student facing anxiety or depression can schedule a session with a professional through the booking system.</li>
-              <li>A student feeling lonely can connect with peers in the community forum.</li>
-              <li>A university counselor can monitor student needs and improve services using the admin dashboard.</li>
-              <li>Students can access self-help resources like meditation audio, therapy worksheets, and awareness videos.</li>
-            </ul>
-          </section>
+          {/* Impact & Benefits */}
+          <Card className="bg-white/70 backdrop-blur-xl shadow-xl rounded-2xl">
+            <CardContent className="p-6">
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Impact & Benefits</h2>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li><strong>Students:</strong> Stigma-free, 24/7 support in regional languages.</li>
+                <li><strong>Colleges:</strong> Actionable analytics for mental health policy-making.</li>
+                <li><strong>Counselors:</strong> Focus on high-risk students with reduced workload.</li>
+                <li><strong>Institutions:</strong> Improved academic performance and retention.</li>
+              </ul>
+            </CardContent>
+          </Card>
 
           {/* Future Roadmap */}
-          <section>
-            <h2 className="text-2xl font-bold mb-3">Future Roadmap</h2>
-            <ul className="list-disc list-inside space-y-2">
-              <li>AI Personalization – Tailoring recommendations and coping strategies based on user behavior.</li>
-              <li>Mobile App Development – Extending access beyond web to iOS/Android.</li>
-              <li>Gamification Features – Rewards, challenges, and mental health streaks to encourage engagement.</li>
-              <li>Integration with University Systems – Linking with academic calendars and student services.</li>
-              <li>Multilingual Support – Expanding accessibility for international students.</li>
-              <li>Data Analytics – Using anonymized insights to identify student needs and improve interventions.</li>
-              <li>Collaboration with NGOs & Hospitals – Expanding the support network.</li>
-            </ul>
-          </section>
-        </main>
+          <Card className="bg-white/70 backdrop-blur-xl shadow-xl rounded-2xl">
+            <CardContent className="p-6">
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Future Roadmap</h2>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li>Mobile app integration for iOS & Android</li>
+                <li>Smarter AI models fine-tuned for regional languages</li>
+                <li>Integration with Telehealth & National Helplines</li>
+                <li>Predictive analytics to anticipate mental health trends</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Research & References */}
+          <Card className="bg-white/70 backdrop-blur-xl shadow-xl rounded-2xl">
+            <CardContent className="p-6">
+              <h2 className="text-3xl font-bold mb-4 text-blue-900">Research & References</h2>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li><a href="https://www.nature.com/articles/s41746-019-0197-0" className="text-blue-700 hover:underline">Nature Digital Medicine – AI for Mental Health</a></li>
+                <li><a href="https://www.who.int/news-room/fact-sheets/detail/adolescent-mental-health" className="text-blue-700 hover:underline">WHO – Adolescent Mental Health</a></li>
+                <li><a href="https://huggingface.co/thrishala/mental_health_chatbot" className="text-blue-700 hover:underline">Hugging Face – Mental Health Chatbot</a></li>
+                <li><a href="https://huggingface.co/sentinet/suicidality" className="text-blue-700 hover:underline">Hugging Face – Suicidality Risk Model</a></li>
+                <li><a href="https://www.harvard.edu/mental-health/" className="text-blue-700 hover:underline">Harvard – Mental Health Research</a></li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Wave Shape */}
-        <div className="absolute bottom-0 left-0 w-full">
+        <div className="absolute bottom-0 left-0 w-full opacity-70">
           <img src="/wave-shape.svg" alt="Wave design" className="w-full" />
         </div>
       </div>

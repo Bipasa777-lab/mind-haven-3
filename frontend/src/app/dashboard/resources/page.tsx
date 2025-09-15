@@ -413,7 +413,7 @@ export default function ResourceHub() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-5xl md:text-6xl font-bold text-black">Resource Hub</h1>
+        <h1 className="text-5xl md:text-6xl font-bold   text-black">Resource Hub</h1>
         <p className="text-xl md:text-2xl text-gray-700 mt-4">
           Browse and access our collection of mental health resources
         </p>

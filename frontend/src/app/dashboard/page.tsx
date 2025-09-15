@@ -62,7 +62,7 @@ export default function DashboardPage() {
       {/* Top Navbar */}
       <header className="fixed top-0 left-0 right-0 h-20 bg-white/40 backdrop-blur-md flex items-center px-6 z-30 shadow-md">
         <img src="/min.svg" alt="Mind Heaven Logo" className="w-16 h-16 rounded-full" />
-        <span className="ml-3 font-bold text-2xl text-black">Mind Heaven</span>
+        <span className="ml-3 font-bold text-2xl text-black">Mind Haven</span>
       </header>
 
       {/* Page Content */}
@@ -74,7 +74,7 @@ export default function DashboardPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Welcome to Mind Heaven
+          Welcome to Mind Haven
         </motion.header>
 
         <motion.p
