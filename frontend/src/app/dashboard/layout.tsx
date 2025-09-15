@@ -5,12 +5,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navigationItems = [
-  { label: 'AI Chat Support', href: '/dashboard/ai-chat-support' },
+  { label: 'AI Chat Support', href: '/dashboard/ai-chat-support' }, // fixed spelling
   { label: 'Book Appointment', href: '/dashboard/book-appointment' },
   { label: 'Resources', href: '/dashboard/resources' },
   { label: 'Peer Support', href: '/dashboard/peer-support' },
   { label: 'Mental Screening', href: '/dashboard/mental-screening' },
 ];
+
 
 export default function DashboardLayout({
   children,
